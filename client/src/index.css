@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  ::selection {
+    background-color: #33473B;
+    color: #F8F5EF;
+  }
+  :focus-visible {
+    outline: 2px solid #33473B;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-forest text-surface px-6 py-3 text-sm tracking-wide uppercase hover:bg-forestdark transition-colors duration-200;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 border border-ink px-6 py-3 text-sm tracking-wide uppercase hover:bg-ink hover:text-surface transition-colors duration-200;
+  }
+  .eyebrow {
+    @apply font-mono text-xs tracking-widest2 uppercase text-inkmuted;
+  }
+  .grain-rule {
+    @apply h-px w-full bg-line;
+  }
+  .input-field {
+    @apply w-full border border-line bg-surface px-4 py-3 text-sm focus:border-forest outline-none transition-colors;
+  }
+}
