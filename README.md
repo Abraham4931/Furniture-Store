@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Fernwood — Furniture E-Commerce (MERN Stack)
 
 A full-stack furniture store: Node/Express/MongoDB API + React (Vite, Tailwind) storefront.
@@ -86,3 +87,7 @@ servers side by side.
   currently orders are created as Cash on Delivery / Bank Transfer for demo purposes.
 - Build the client (`npm run build` in `client/`) and serve the static output from
   Express, or deploy client and server separately (e.g. Vercel + Render/Railway).
+=======
+# Furniture-Store
+An online marketplace for buying and selling furniture.
+>>>>>>> 2784ae397796b194afa8a1a0a5faa6c68b3433c2
