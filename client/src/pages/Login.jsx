@@ -27,9 +27,6 @@ export default function Login() {
   return (
     <div className="max-w-md mx-auto px-6 py-20">
       <h1 className="font-display text-4xl mb-2">Sign in</h1>
-      <p className="text-inkmuted text-sm mb-8">
-        Demo admin: admin@furniture.com / admin1234 · Demo shopper: shopper@example.com / shopper1234
-      </p>
       <form onSubmit={submit} className="space-y-4">
         {error && <p className="text-rust text-sm">{error}</p>}
         <input required type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input-field" />
