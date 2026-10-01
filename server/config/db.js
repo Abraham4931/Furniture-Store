@@ -1,13 +1,25 @@
-import mongoose from "mongoose";
+import pg from "pg";
+import dotenv from "dotenv";
 
-const connectDB = async () => {
+dotenv.config();
+
+const { Pool } = pg;
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+export const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB connected: ${conn.connection.host}`);
+    await pool.query("SELECT 1");
+    console.log("PostgreSQL connected");
   } catch (error) {
-    console.error(`Error connecting to MongoDB: ${error.message}`);
+    console.error("PostgreSQL connection failed:", error.message);
     process.exit(1);
   }
 };
 
-export default connectDB;
+export default pool;

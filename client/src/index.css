@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,30 +8,183 @@
   html {
     scroll-behavior: smooth;
   }
-  ::selection {
-    background-color: #33473B;
-    color: #F8F5EF;
+
+  body {
+    @apply bg-[#F6F5F0] text-[#20251F] antialiased;
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
+
+  ::selection {
+    background-color: #D8E2D2;
+    color: #20251F;
+  }
+
   :focus-visible {
-    outline: 2px solid #33473B;
-    outline-offset: 2px;
+    outline: 2px solid #71856A;
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-[-0.025em] text-[#20251F];
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-forest text-surface px-6 py-3 text-sm tracking-wide uppercase hover:bg-forestdark transition-colors duration-200;
+    @apply inline-flex items-center justify-center gap-2
+    rounded-lg
+    bg-[#26352B]
+    px-6 py-3
+    text-sm font-semibold
+    text-white
+    shadow-sm
+    transition-all duration-200
+    hover:bg-[#35473A]
+    hover:shadow-md
+    active:scale-[0.98];
   }
+
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 border border-ink px-6 py-3 text-sm tracking-wide uppercase hover:bg-ink hover:text-surface transition-colors duration-200;
+    @apply inline-flex items-center justify-center gap-2
+    rounded-lg
+    border border-[#26352B]
+    bg-transparent
+    px-6 py-3
+    text-sm font-semibold
+    text-[#26352B]
+    transition-all duration-200
+    hover:bg-[#26352B]
+    hover:text-white
+    active:scale-[0.98];
   }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2
+    rounded-lg
+    bg-[#A88952]
+    px-6 py-3
+    text-sm font-semibold
+    text-white
+    transition-all duration-200
+    hover:bg-[#917342]
+    hover:shadow-md
+    active:scale-[0.98];
+  }
+
+  .btn-soft {
+    @apply inline-flex items-center justify-center gap-2
+    rounded-lg
+    bg-[#D8E2D2]
+    px-5 py-3
+    text-sm font-semibold
+    text-[#26352B]
+    transition-all duration-200
+    hover:bg-[#C9D5C2]
+    active:scale-[0.98];
+  }
+
   .eyebrow {
-    @apply font-mono text-xs tracking-widest2 uppercase text-inkmuted;
+    @apply text-xs
+    font-semibold
+    uppercase
+    tracking-[0.2em]
+    text-[#71856A];
   }
+
   .grain-rule {
-    @apply h-px w-full bg-line;
+    @apply h-px w-full bg-[#D8DDD4];
   }
+
   .input-field {
-    @apply w-full border border-line bg-surface px-4 py-3 text-sm focus:border-forest outline-none transition-colors;
+    @apply w-full
+    rounded-lg
+    border border-[#D8DDD4]
+    bg-white
+    px-4 py-3
+    text-sm text-[#20251F]
+    placeholder:text-[#929A91]
+    outline-none
+    transition-all duration-200
+    focus:border-[#71856A]
+    focus:ring-2
+    focus:ring-[#D8E2D2];
+  }
+
+  .card {
+    @apply rounded-xl
+    border border-[#D8DDD4]
+    bg-white
+    shadow-sm
+    transition-all duration-200
+    hover:shadow-md;
+  }
+
+  .product-card {
+    @apply group overflow-hidden
+    rounded-xl
+    border border-[#D8DDD4]
+    bg-white
+    transition-all duration-300
+    hover:-translate-y-1
+    hover:shadow-lg;
+  }
+
+  .product-image {
+    @apply aspect-square
+    w-full
+    bg-[#ECEFE9]
+    object-cover
+    transition-transform duration-500
+    group-hover:scale-105;
+  }
+
+  .badge {
+    @apply inline-flex
+    items-center
+    rounded-full
+    bg-[#D8E2D2]
+    px-3 py-1
+    text-xs
+    font-semibold
+    text-[#35473A];
+  }
+
+  .container-page {
+    @apply mx-auto
+    w-full
+    max-w-7xl
+    px-4
+    sm:px-6
+    lg:px-8;
+  }
+
+  .section {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .page-title {
+    @apply text-4xl
+    font-bold
+    tracking-[-0.035em]
+    text-[#20251F]
+    sm:text-5xl
+    lg:text-6xl;
+  }
+
+  .text-muted {
+    @apply text-[#6F776E];
   }
 }

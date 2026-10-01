@@ -1,93 +1,186 @@
-<<<<<<< HEAD
-# Fernwood — Furniture E-Commerce (MERN Stack)
+# Fernwood — Furniture E-Commerce
 
-A full-stack furniture store: Node/Express/MongoDB API + React (Vite, Tailwind) storefront.
+A full-stack furniture marketplace for buying and selling furniture, built with a React storefront and a Node.js/Express backend.
 
 ## Features
 
-**Storefront**
-- Product catalog with search, category filter, price sort, pagination
-- Product detail pages with image gallery, stock status, and customer reviews
-- Cart (persisted in localStorage) and multi-step checkout
-- Order history and order detail pages
-- JWT auth: register / login / profile
+### Storefront
 
-**Admin panel** (`/admin`, requires an admin account)
-- Product CRUD
-- Order list with status updates (Pending → Processing → Shipped → Delivered)
+* Product catalog with search, category filtering, price sorting, and pagination
+* Product detail pages with image gallery, stock status, and customer reviews
+* Cart persisted in `localStorage`
+* Multi-step checkout
+* Order history and order details
+* JWT authentication: register, login, and profile
 
-**Backend**
-- REST API secured with JWT, role-based (`isAdmin`) route protection
-- Mongoose models: User, Product, Category, Order, Review
-- Server-side re-pricing on checkout (prevents client-side price tampering)
-- Centralized error handling, seed script with sample furniture data
+### Admin Panel
 
-## Project structure
+Available at `/admin` and requires an admin account.
 
-```
-furniture-store/
-├── server/                 # Express API
-│   ├── config/db.js
+* Product CRUD
+* Order management
+* Order status updates:
+
+  * Pending
+  * Processing
+  * Shipped
+  * Delivered
+
+### Backend
+
+* REST API built with Node.js and Express
+* PostgreSQL database
+* JWT authentication
+* Role-based access control using `isAdmin`
+* PostgreSQL data models for:
+
+  * User
+  * Product
+  * Category
+  * Order
+  * Review
+* Server-side product re-pricing during checkout to prevent client-side price tampering
+* Centralized error handling
+* Seed script for sample furniture data
+
+## Project Structure
+
+```text
+Furniture-Store/
+
+├── server/                  # Express API
+│   ├── config/
+│   │   └── db.js            # PostgreSQL connection
 │   ├── models/
 │   ├── controllers/
 │   ├── routes/
 │   ├── middleware/
-│   ├── seeder.js           # loads sample categories/products/users
+│   ├── seeder.js             # Loads sample data
 │   └── server.js
-└── client/                 # React app (Vite + Tailwind)
+
+└── client/                  # React app (Vite + Tailwind)
     └── src/
-        ├── api/axios.js
-        ├── context/        # Auth + Cart state
+        ├── api/
+        │   └── axios.js
+        ├── context/          # Auth + Cart state
         ├── components/
         └── pages/
 ```
 
-## Getting started
+## Getting Started
 
 ### 1. Backend
 
 ```bash
 cd server
-cp .env.example .env      # then edit MONGO_URI / JWT_SECRET
 npm install
-npm run seed               # loads sample categories, products, and demo users
-npm run dev                 # starts the API on http://localhost:5000
+npm run dev
 ```
 
-You'll need a MongoDB instance — either local (`mongodb://127.0.0.1:27017/furniture_store`)
-or a free [MongoDB Atlas](https://www.mongodb.com/atlas) cluster (recommended if you don't
-want to install MongoDB locally).
+The backend runs on:
 
-Demo accounts created by the seeder:
-- Admin: `admin@furniture.com` / `admin1234`
-- Shopper: `shopper@example.com` / `shopper1234`
+```text
+http://localhost:5000
+```
+
+### Database
+
+The backend uses PostgreSQL.
+
+Create a `.env` file inside the `server` directory:
+
+```env
+DATABASE_URL=your_postgresql_connection_string
+JWT_SECRET=your_secret_key
+PORT=5000
+CLIENT_URL=http://localhost:5173
+```
+
+The PostgreSQL database can be hosted using a service such as Neon or another PostgreSQL provider.
+
+Make sure the required database tables have been created before starting the application.
 
 ### 2. Frontend
 
 ```bash
 cd client
 npm install
-npm run dev                 # starts the app on http://localhost:5173
+npm run dev
 ```
 
-The Vite dev server proxies `/api` requests to `http://localhost:5000`, so run both
-servers side by side.
+The Vite development server runs on:
 
-### 3. Try it out
+```text
+http://localhost:5173
+```
 
-- Visit `http://localhost:5173`, browse the catalog, add items to the cart, check out.
-- Sign in as the admin account and visit `/admin` to add/edit products and manage orders.
+Run both the backend and frontend servers at the same time during development.
 
-## Notes on going to production
+### 3. Try It Out
 
-- Set a long, random `JWT_SECRET` and a real `MONGO_URI` in `server/.env`.
-- Swap the comma-separated image URL field in the admin product form for real
-  image uploads (e.g. Cloudinary or S3) if you need users to upload photos directly.
-- Add a real payment provider (Stripe, etc.) in place of the `paymentMethod` field —
-  currently orders are created as Cash on Delivery / Bank Transfer for demo purposes.
-- Build the client (`npm run build` in `client/`) and serve the static output from
-  Express, or deploy client and server separately (e.g. Vercel + Render/Railway).
-=======
-# Furniture-Store
-An online marketplace for buying and selling furniture.
->>>>>>> 2784ae397796b194afa8a1a0a5faa6c68b3433c2
+Visit:
+
+```text
+http://localhost:5173
+```
+
+You can:
+
+* Browse furniture products
+* Search and filter products
+* Add products to the cart
+* Create an account
+* Sign in
+* Complete checkout
+* View your orders
+
+Administrators can visit:
+
+```text
+http://localhost:5173/admin
+```
+
+to manage products and orders.
+
+## Database
+
+The project uses PostgreSQL with the following main tables:
+
+* `users`
+* `categories`
+* `products`
+* `reviews`
+* `orders`
+* `order_items`
+
+The Express backend communicates with PostgreSQL using the `pg` package.
+
+## Environment Variables
+
+The backend requires the following environment variables:
+
+```env
+DATABASE_URL=your_postgresql_connection_string
+JWT_SECRET=your_secret_key
+PORT=5000
+CLIENT_URL=http://localhost:5173
+```
+
+Do not commit your `.env` file to Git.
+
+## Production Notes
+
+Before deploying:
+
+* Use a strong, random `JWT_SECRET`.
+* Use a production PostgreSQL database.
+* Keep database credentials in environment variables.
+* Replace demo image URLs with a proper image storage service if necessary.
+* Add a real payment provider if online payments are required.
+* Build the React client with:
+
+```bash
+npm run build
+```
+
+* Deploy the frontend and backend separately or serve the frontend build through Express.
