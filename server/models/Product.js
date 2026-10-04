@@ -1,7 +1,9 @@
 import pool from "../config/db.js";
 
 const Product = {
+  // ============================================================
   // Create product
+  // ============================================================
   async create({
     name,
     slug,
@@ -58,9 +60,9 @@ const Product = {
       brand,
       material,
       color,
-      dimensions.width || null,
-      dimensions.height || null,
-      dimensions.depth || null,
+      dimensions.width ?? null,
+      dimensions.height ?? null,
+      dimensions.depth ?? null,
       dimensions.unit || "cm",
       images,
       price,
@@ -77,7 +79,9 @@ const Product = {
     return rows[0];
   },
 
+  // ============================================================
   // Get all products
+  // ============================================================
   async findAll() {
     const query = `
       SELECT *
@@ -90,7 +94,9 @@ const Product = {
     return rows;
   },
 
+  // ============================================================
   // Find product by ID
+  // ============================================================
   async findById(id) {
     const query = `
       SELECT *
@@ -103,7 +109,9 @@ const Product = {
     return rows[0] || null;
   },
 
+  // ============================================================
   // Find product by slug
+  // ============================================================
   async findBySlug(slug) {
     const query = `
       SELECT *
@@ -112,13 +120,15 @@ const Product = {
     `;
 
     const { rows } = await pool.query(query, [
-      slug.toLowerCase(),
+      slug.toLowerCase().trim(),
     ]);
 
     return rows[0] || null;
   },
 
+  // ============================================================
   // Find products by category
+  // ============================================================
   async findByCategory(categoryId) {
     const query = `
       SELECT *
@@ -132,7 +142,9 @@ const Product = {
     return rows;
   },
 
-  // Get featured products
+  // ============================================================
+  // Featured products
+  // ============================================================
   async findFeatured() {
     const query = `
       SELECT *
@@ -146,7 +158,9 @@ const Product = {
     return rows;
   },
 
-  // Search products
+  // ============================================================
+  // Search
+  // ============================================================
   async search(searchTerm) {
     const query = `
       SELECT *
@@ -169,7 +183,9 @@ const Product = {
     return rows;
   },
 
+  // ============================================================
   // Update product
+  // ============================================================
   async update(id, data) {
     const {
       name,
@@ -219,7 +235,7 @@ const Product = {
 
     const values = [
       name ?? null,
-      slug?.toLowerCase() ?? null,
+      slug?.toLowerCase().trim() ?? null,
       description ?? null,
       categoryId ?? null,
       brand ?? null,
@@ -245,7 +261,9 @@ const Product = {
     return rows[0] || null;
   },
 
+  // ============================================================
   // Delete product
+  // ============================================================
   async delete(id) {
     const query = `
       DELETE FROM products

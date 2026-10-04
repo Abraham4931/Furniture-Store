@@ -1,7 +1,9 @@
 import pool from "../config/db.js";
 
 const Review = {
-  // Create a review
+  // ============================================================
+  // Create review
+  // ============================================================
   async create({
     productId,
     userId,
@@ -42,8 +44,10 @@ const Review = {
     return rows[0];
   },
 
-  // Get all reviews for a product
-  async findByProduct(productId) {
+  // ============================================================
+  // Get reviews for product
+  // ============================================================
+  async findByProductId(productId) {
     const query = `
       SELECT
         id,
@@ -64,7 +68,9 @@ const Review = {
     return rows;
   },
 
-  // Find a user's review for a product
+  // ============================================================
+  // Find review by product and user
+  // ============================================================
   async findByProductAndUser(productId, userId) {
     const query = `
       SELECT
@@ -89,7 +95,68 @@ const Review = {
     return rows[0] || null;
   },
 
-  // Delete a review
+  // ============================================================
+  // Find review by ID
+  // ============================================================
+  async findById(id) {
+    const query = `
+      SELECT
+        id,
+        product_id,
+        user_id,
+        name,
+        rating,
+        comment,
+        created_at,
+        updated_at
+      FROM reviews
+      WHERE id = $1
+    `;
+
+    const { rows } = await pool.query(query, [id]);
+
+    return rows[0] || null;
+  },
+
+  // ============================================================
+  // Update review
+  // ============================================================
+  async update(id, {
+    rating,
+    comment,
+  }) {
+    const query = `
+      UPDATE reviews
+      SET
+        rating = COALESCE($1, rating),
+        comment = COALESCE($2, comment),
+        updated_at = CURRENT_TIMESTAMP
+      WHERE id = $3
+      RETURNING
+        id,
+        product_id,
+        user_id,
+        name,
+        rating,
+        comment,
+        created_at,
+        updated_at
+    `;
+
+    const values = [
+      rating ?? null,
+      comment ?? null,
+      id,
+    ];
+
+    const { rows } = await pool.query(query, values);
+
+    return rows[0] || null;
+  },
+
+  // ============================================================
+  // Delete review
+  // ============================================================
   async delete(id) {
     const query = `
       DELETE FROM reviews

@@ -1,8 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/*
+|--------------------------------------------------------------------------
+| Theme
+|--------------------------------------------------------------------------
+*/
+
+@theme {
+  --color-canvas: #f6f5f0;
+  --color-ink: #20251f;
+
+  --color-primary: #26352b;
+  --color-primary-hover: #35473a;
+
+  --color-accent: #a88952;
+  --color-accent-hover: #917342;
+
+  --color-soft: #d8e2d2;
+  --color-soft-hover: #c9d5c2;
+
+  --color-border: #d8ddd4;
+  --color-muted: #6f776e;
+  --color-placeholder: #929a91;
+  --color-image-bg: #ecefe9;
+
+  --font-body: "Plus Jakarta Sans", sans-serif;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Base
+|--------------------------------------------------------------------------
+*/
 
 @layer base {
   html {
@@ -10,17 +41,17 @@
   }
 
   body {
-    @apply bg-[#F6F5F0] text-[#20251F] antialiased;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    @apply bg-canvas text-ink antialiased;
+    font-family: var(--font-body);
   }
 
   ::selection {
-    background-color: #D8E2D2;
-    color: #20251F;
+    background-color: var(--color-soft);
+    color: var(--color-ink);
   }
 
   :focus-visible {
-    outline: 2px solid #71856A;
+    outline: 2px solid #71856a;
     outline-offset: 3px;
   }
 
@@ -30,161 +61,261 @@
   h4,
   h5,
   h6 {
-    @apply font-bold tracking-[-0.025em] text-[#20251F];
-    font-family: "Plus Jakarta Sans", sans-serif;
+    @apply font-bold tracking-[-0.025em] text-ink;
+
+    font-family: var(--font-body);
   }
 
   button,
   input,
   textarea,
   select {
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: var(--font-body);
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  img {
+    max-width: 100%;
   }
 }
 
+/*
+|--------------------------------------------------------------------------
+| Components
+|--------------------------------------------------------------------------
+*/
+
 @layer components {
+  /*
+  |--------------------------------------------------------------------------
+  | Buttons
+  |--------------------------------------------------------------------------
+  */
+
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2
-    rounded-lg
-    bg-[#26352B]
-    px-6 py-3
-    text-sm font-semibold
-    text-white
-    shadow-sm
-    transition-all duration-200
-    hover:bg-[#35473A]
-    hover:shadow-md
-    active:scale-[0.98];
+    @apply inline-flex
+      items-center
+      justify-center
+      gap-2
+      rounded-lg
+      bg-primary
+      px-6
+      py-3
+      text-sm
+      font-semibold
+      text-white
+      shadow-sm
+      transition-all
+      duration-200
+      hover:bg-primary-hover
+      hover:shadow-md
+      active:scale-[0.98];
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2
-    rounded-lg
-    border border-[#26352B]
-    bg-transparent
-    px-6 py-3
-    text-sm font-semibold
-    text-[#26352B]
-    transition-all duration-200
-    hover:bg-[#26352B]
-    hover:text-white
-    active:scale-[0.98];
+    @apply inline-flex
+      items-center
+      justify-center
+      gap-2
+      rounded-lg
+      border
+      border-primary
+      bg-transparent
+      px-6
+      py-3
+      text-sm
+      font-semibold
+      text-primary
+      transition-all
+      duration-200
+      hover:bg-primary
+      hover:text-white
+      active:scale-[0.98];
   }
 
   .btn-accent {
-    @apply inline-flex items-center justify-center gap-2
-    rounded-lg
-    bg-[#A88952]
-    px-6 py-3
-    text-sm font-semibold
-    text-white
-    transition-all duration-200
-    hover:bg-[#917342]
-    hover:shadow-md
-    active:scale-[0.98];
+    @apply inline-flex
+      items-center
+      justify-center
+      gap-2
+      rounded-lg
+      bg-accent
+      px-6
+      py-3
+      text-sm
+      font-semibold
+      text-white
+      transition-all
+      duration-200
+      hover:bg-accent-hover
+      hover:shadow-md
+      active:scale-[0.98];
   }
 
   .btn-soft {
-    @apply inline-flex items-center justify-center gap-2
-    rounded-lg
-    bg-[#D8E2D2]
-    px-5 py-3
-    text-sm font-semibold
-    text-[#26352B]
-    transition-all duration-200
-    hover:bg-[#C9D5C2]
-    active:scale-[0.98];
+    @apply inline-flex
+      items-center
+      justify-center
+      gap-2
+      rounded-lg
+      bg-soft
+      px-5
+      py-3
+      text-sm
+      font-semibold
+      text-primary
+      transition-all
+      duration-200
+      hover:bg-soft-hover
+      active:scale-[0.98];
   }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Typography
+  |--------------------------------------------------------------------------
+  */
 
   .eyebrow {
     @apply text-xs
-    font-semibold
-    uppercase
-    tracking-[0.2em]
-    text-[#71856A];
-  }
-
-  .grain-rule {
-    @apply h-px w-full bg-[#D8DDD4];
-  }
-
-  .input-field {
-    @apply w-full
-    rounded-lg
-    border border-[#D8DDD4]
-    bg-white
-    px-4 py-3
-    text-sm text-[#20251F]
-    placeholder:text-[#929A91]
-    outline-none
-    transition-all duration-200
-    focus:border-[#71856A]
-    focus:ring-2
-    focus:ring-[#D8E2D2];
-  }
-
-  .card {
-    @apply rounded-xl
-    border border-[#D8DDD4]
-    bg-white
-    shadow-sm
-    transition-all duration-200
-    hover:shadow-md;
-  }
-
-  .product-card {
-    @apply group overflow-hidden
-    rounded-xl
-    border border-[#D8DDD4]
-    bg-white
-    transition-all duration-300
-    hover:-translate-y-1
-    hover:shadow-lg;
-  }
-
-  .product-image {
-    @apply aspect-square
-    w-full
-    bg-[#ECEFE9]
-    object-cover
-    transition-transform duration-500
-    group-hover:scale-105;
-  }
-
-  .badge {
-    @apply inline-flex
-    items-center
-    rounded-full
-    bg-[#D8E2D2]
-    px-3 py-1
-    text-xs
-    font-semibold
-    text-[#35473A];
-  }
-
-  .container-page {
-    @apply mx-auto
-    w-full
-    max-w-7xl
-    px-4
-    sm:px-6
-    lg:px-8;
-  }
-
-  .section {
-    @apply py-16 sm:py-20 lg:py-24;
+      font-semibold
+      uppercase
+      tracking-[0.2em]
+      text-[#71856a];
   }
 
   .page-title {
     @apply text-4xl
-    font-bold
-    tracking-[-0.035em]
-    text-[#20251F]
-    sm:text-5xl
-    lg:text-6xl;
+      font-bold
+      tracking-[-0.035em]
+      text-ink
+      sm:text-5xl
+      lg:text-6xl;
   }
 
   .text-muted {
-    @apply text-[#6F776E];
+    color: var(--color-muted);
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Layout
+  |--------------------------------------------------------------------------
+  */
+
+  .container-page {
+    @apply mx-auto
+      w-full
+      max-w-7xl
+      px-4
+      sm:px-6
+      lg:px-8;
+  }
+
+  .section {
+    @apply py-16
+      sm:py-20
+      lg:py-24;
+  }
+
+  .grain-rule {
+    @apply h-px
+      w-full
+      bg-border;
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Forms
+  |--------------------------------------------------------------------------
+  */
+
+  .input-field {
+    @apply w-full
+      rounded-lg
+      border
+      border-border
+      bg-white
+      px-4
+      py-3
+      text-sm
+      text-ink
+      placeholder:text-placeholder
+      outline-none
+      transition-all
+      duration-200
+      focus:border-[#71856a]
+      focus:ring-2
+      focus:ring-soft;
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Cards
+  |--------------------------------------------------------------------------
+  */
+
+  .card {
+    @apply rounded-xl
+      border
+      border-border
+      bg-white
+      shadow-sm
+      transition-all
+      duration-200
+      hover:shadow-md;
+  }
+
+  .product-card {
+    @apply overflow-hidden
+      rounded-xl
+      border
+      border-border
+      bg-white
+      transition-all
+      duration-300
+      hover:-translate-y-1
+      hover:shadow-lg;
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Product Images
+  |--------------------------------------------------------------------------
+  */
+
+  .product-image {
+    @apply aspect-square
+      w-full
+      bg-image-bg
+      object-cover
+      transition-transform
+      duration-500
+      group-hover:scale-105;
+  }
+
+  /*
+  |--------------------------------------------------------------------------
+  | Badges
+  |--------------------------------------------------------------------------
+  */
+
+  .badge {
+    @apply inline-flex
+      items-center
+      rounded-full
+      bg-soft
+      px-3
+      py-1
+      text-xs
+      font-semibold
+      text-primary;
   }
 }
